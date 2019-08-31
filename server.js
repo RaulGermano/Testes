@@ -8,7 +8,7 @@ const upload = multer({ dest: 'uploads/images/' });
 server.use(express.static('public'));
 
 server.post('/file/upload', upload.single('file'), (req, res) => {
-	res.send('Ok');
+	res.send('File sent!');
 });
 
 server.listen(3000);
