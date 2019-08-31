@@ -12,20 +12,25 @@ const storage = multer.diskStorage({
 		// To use the real file name.
 		// cb(null, file.originalname);
 
-		// To use the real file name with a 'hash'.
+		// To use the real file name with a little 'hash'.
 		cb(
 			null,
-			`${file.fieldname}-${Date.now()}.${path.extname(file.originalname)}`
+			`${file.originalname}-${Date.now()}${path.extname(
+				file.originalname
+			)}`
 		);
 	}
 });
 
 const upload = multer({ storage });
 
+server.use(express.json());
 server.use(express.static('public'));
 
 server.post('/file/upload', upload.single('file-image-profile'), (req, res) => {
-	res.send('File sent!');
+	res.json({
+		message: 'Sent file'
+	});
 });
 
 server.listen(3333);
